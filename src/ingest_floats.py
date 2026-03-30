@@ -18,4 +18,14 @@ def load_float_csv(path: str) -> pd.DataFrame:
     df = df.dropna(subset=["float_id", "first_timestamp", "lat", "lon"]).copy()
     df = df.sort_values("first_timestamp").reset_index(drop=True)
 
+    # ✅ Normalize to canonical schema
+    df = df.rename(
+        columns={
+            "first_timestamp": "timestamp_utc",
+        }
+    )
+
+    df["timestamp_utc"] = pd.to_datetime(df["timestamp_utc"], utc=True, errors="coerce")
+    df["source"] = "synthetic_float"
+
     return df

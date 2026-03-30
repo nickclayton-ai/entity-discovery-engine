@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+from config import LOW_SPEED_KNOTS
 
 
 def plot_vessel_track(df: pd.DataFrame, events: pd.DataFrame) -> None:
@@ -9,7 +10,7 @@ def plot_vessel_track(df: pd.DataFrame, events: pd.DataFrame) -> None:
     plt.plot(df["lon"], df["lat"], marker="o", linewidth=1, label="Vessel Track")
 
     # Low-speed points
-    low_speed_df = df[df["sog"] < 2.0]
+    low_speed_df = df[df["sog_knots"] < LOW_SPEED_KNOTS]
     if not low_speed_df.empty:
         plt.scatter(
             low_speed_df["lon"],

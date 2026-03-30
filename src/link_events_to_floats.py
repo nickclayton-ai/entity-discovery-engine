@@ -26,12 +26,10 @@ def compute_score(distance_km, time_hours, max_distance_km, max_time_hours):
     distance_score = 1 - (distance_km / max_distance_km)
     time_score = 1 - (time_hours / max_time_hours)
 
-    # clamp values between 0 and 1
     distance_score = max(0, min(1, distance_score))
     time_score = max(0, min(1, time_score))
 
     final_score = 0.6 * distance_score + 0.4 * time_score
-
     return round(final_score, 3)
 
 
@@ -59,7 +57,7 @@ def link_events_to_floats(
         event_end_time = pd.to_datetime(event["end_time"], utc=True)
 
         for _, flt in floats_df.iterrows():
-            float_time = pd.to_datetime(flt["first_timestamp"], utc=True)
+            float_time = pd.to_datetime(flt["timestamp_utc"], utc=True)
 
             time_diff_hours = (float_time - event_end_time).total_seconds() / 3600
 
@@ -100,5 +98,4 @@ def link_events_to_floats(
 
     result = pd.DataFrame(matches)
     result = result.sort_values("score", ascending=False).reset_index(drop=True)
-
     return result
