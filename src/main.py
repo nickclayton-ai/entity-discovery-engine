@@ -14,7 +14,7 @@ from src.config import (
 
 def main() -> None:
     ais_path = "data/staging/normalized_ais_marinecadastre.csv"
-    float_path = "data/raw/argo_float_sample.csv"
+    float_path = "data/staging/normalized_argo_float.csv"
 
     df = load_ais_csv(ais_path)
     print(f"Loaded {len(df)} AIS points")
