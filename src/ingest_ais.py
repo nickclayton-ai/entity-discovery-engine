@@ -29,7 +29,8 @@ def load_ais_csv(path: str) -> pd.DataFrame:
     df["sog_knots"] = pd.to_numeric(df["sog_knots"], errors="coerce")
     df["cog_deg"] = pd.to_numeric(df["cog_deg"], errors="coerce")
 
-    df = df.dropna(subset=["timestamp_utc", "lat", "lon", "sog_knots"]).copy()
-    df = df.sort_values(["vessel_id", "timestamp_utc"]).reset_index(drop=True)
+    df["vessel_id"] = df["vessel_id"].astype(str)
+    df["mmsi"] = df["mmsi"].astype(str)
+    df["imo"] = df["imo"].astype(str)
 
     return df[VESSEL_SCHEMA]

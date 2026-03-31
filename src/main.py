@@ -1,30 +1,24 @@
-from src.ingest_ais import load_ais_csv
-from src.detect_events import detect_low_speed_events
 from src.plot_track import plot_vessel_track
-from src.ingest_floats import load_float_csv
-from src.link_events_to_floats import link_events_to_floats
-from src.config import (
-    LOW_SPEED_KNOTS,
-    MIN_EVENT_DURATION_MINUTES,
-    MAX_GAP_MINUTES,
-    MAX_LINK_DISTANCE_KM,
-    MAX_LINK_TIME_HOURS,
-)
+from src.run_case import run_case
 
 
 def main() -> None:
     ais_path = "data/staging/normalized_ais_marinecadastre.csv"
     float_path = "data/staging/normalized_argo_float.csv"
+    target_vessel_id = "123456789"
 
-    df = load_ais_csv(ais_path)
-    print(f"Loaded {len(df)} AIS points")
-
-    events = detect_low_speed_events(
-        df=df,
-        low_speed_knots=LOW_SPEED_KNOTS,
-        min_event_duration_minutes=MIN_EVENT_DURATION_MINUTES,
-        max_gap_minutes=MAX_GAP_MINUTES,
+    result = run_case(
+        vessel_id=target_vessel_id,
+        ais_path=ais_path,
+        float_path=float_path,
     )
+
+    print(f"Selected vessel {result['vessel_id']}")
+    print(f"Loaded {result['ais_point_count']} AIS points for selected vessel")
+
+    events = result["events"]
+    links = result["links"]
+    vessel_track = result["vessel_track"]
 
     if events.empty:
         print("No candidate low-speed events found.")
@@ -36,17 +30,7 @@ def main() -> None:
         events.to_csv(events_output_path, index=False)
         print(f"\nSaved events to {events_output_path}")
 
-    plot_vessel_track(df, events)
-
-    floats_df = load_float_csv(float_path)
-    print(f"\nLoaded {len(floats_df)} float records")
-
-    links = link_events_to_floats(
-        events,
-        floats_df,
-        max_distance_km=MAX_LINK_DISTANCE_KM,
-        max_time_hours=MAX_LINK_TIME_HOURS,
-    )
+    plot_vessel_track(vessel_track, events)
 
     if links.empty:
         print("\nNo event-to-float links found.")
