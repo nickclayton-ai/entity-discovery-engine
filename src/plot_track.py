@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from config import LOW_SPEED_KNOTS
+from src.config import LOW_SPEED_KNOTS
 
 
 def plot_vessel_track(df: pd.DataFrame, events: pd.DataFrame) -> None:

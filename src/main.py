@@ -1,9 +1,9 @@
-from ingest_ais import load_ais_csv
-from detect_events import detect_low_speed_events
-from plot_track import plot_vessel_track
-from ingest_floats import load_float_csv
-from link_events_to_floats import link_events_to_floats
-from config import (
+from src.ingest_ais import load_ais_csv
+from src.detect_events import detect_low_speed_events
+from src.plot_track import plot_vessel_track
+from src.ingest_floats import load_float_csv
+from src.link_events_to_floats import link_events_to_floats
+from src.config import (
     LOW_SPEED_KNOTS,
     MIN_EVENT_DURATION_MINUTES,
     MAX_GAP_MINUTES,
@@ -13,7 +13,7 @@ from config import (
 
 
 def main() -> None:
-    ais_path = "data/raw/vessel_ais_sample.csv"
+    ais_path = "data/staging/normalized_ais_marinecadastre.csv"
     float_path = "data/raw/argo_float_sample.csv"
 
     df = load_ais_csv(ais_path)
