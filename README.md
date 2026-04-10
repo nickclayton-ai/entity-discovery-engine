@@ -9,12 +9,15 @@ Maritime intelligence data is fragmented across multiple sources (AIS vessel tra
 This project simulates an analyst-facing data fusion pipeline that automatically surfaces candidate relationships and ranks them using explainable spatial and temporal scoring.
 
 ⚙️ What This System Does
+
 Ingests vessel AIS track data
 Detects candidate low-speed / loitering events (potential activity of interest)
 Ingests float / buoy first-observation data
 Links vessel events to downstream entities using spatiotemporal correlation
 Ranks associations using explainable distance and time-based scoring
+
 🏗️ System Architecture
+
 AIS Vessel Data        Float / Buoy Data
         ↓                      ↓
    Data Cleaning & Normalization
@@ -26,6 +29,7 @@ AIS Vessel Data        Float / Buoy Data
      Scoring & Ranking Engine
                 ↓
       Structured Output + Visualization
+      
 📊 Example Use Case
 
 Identify a vessel exhibiting loitering behavior and determine whether nearby downstream observations (e.g., floats or environmental signals) are likely associated.
@@ -36,16 +40,20 @@ Maritime Domain Awareness (MDA)
 ISR workflows
 Pattern-of-life analysis
 Anomaly detection
+
 📈 Example Output
+
 vessel_id	event_time	event_lat	event_lon	float_id	distance_km	time_delta_hr	confidence
 987654321	2026-03-28 12:00	32.71	-117.16	F1023	4.2	1.8	High
 
 (Output simplified for demonstration purposes)
 
 🛠️ Tech Stack
+
 Python
 pandas / numpy
 matplotlib
+
 🔍 Approach
 
 Ingestion
@@ -65,6 +73,7 @@ Scoring
 
 Rank associations using normalized distance and time features
 Generate explainable confidence classifications
+
 📊 Visualization
 
 (Insert screenshot or plot here — REQUIRED for final version)
@@ -78,7 +87,9 @@ This type of workflow is directly applicable to:
 Defense and intelligence environments
 Large-scale data integration problems
 Operational decision support systems
+
 ▶️ How to Run
+
 python -m src.main
 
 (Ensure data is placed in /data/raw/ directory)
@@ -93,6 +104,7 @@ Real-world AIS and buoy ingestion
 PostGIS integration for geospatial querying
 API layer (FastAPI)
 Frontend interface (Next.js)
+
 ⚠️ Notes
 
 All data used is synthetic or publicly available. No sensitive or classified information is included.
