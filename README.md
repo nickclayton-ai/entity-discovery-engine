@@ -1,67 +1,98 @@
-# Entity Discovery Engine
+🚀 Entity Discovery Engine
 
-## Overview
-Entity Discovery Engine is a spatiotemporal analytics workflow for identifying relationships and uncovering hidden patterns across large datasets.
+Spatiotemporal Data Fusion & Maritime Entity Correlation System
 
-The current prototype focuses on maritime-style entity discovery by:
-- ingesting vessel AIS track data
-- detecting candidate low-speed / loitering events
-- ingesting float first-observation data
-- linking vessel events to candidate downstream entities
-- ranking associations using explainable spatial and temporal scoring
+🧠 Problem
 
-## Problem
-Traditional analysis workflows often require significant manual effort to identify related entities across large volumes of time-series and geospatial data.
+Maritime intelligence data is fragmented across multiple sources (AIS vessel tracks, environmental sensors, float/buoy data), making it difficult to identify relationships between entities and detect meaningful patterns without significant manual analysis.
 
-This project explores how an analyst-facing pipeline can reduce that burden by surfacing candidate relationships automatically and scoring them transparently.
+This project simulates an analyst-facing data fusion pipeline that automatically surfaces candidate relationships and ranks them using explainable spatial and temporal scoring.
 
-## Current Capabilities (v0.1-engine)
-- AIS ingestion and cleaning
-- candidate event detection using low-speed clustering
-- float ingestion
-- event-to-float linkage
-- distance and time filtering
-- explainable scoring and confidence classification
-- basic visualization of vessel track and detected events
+⚙️ What This System Does
+Ingests vessel AIS track data
+Detects candidate low-speed / loitering events (potential activity of interest)
+Ingests float / buoy first-observation data
+Links vessel events to downstream entities using spatiotemporal correlation
+Ranks associations using explainable distance and time-based scoring
+🏗️ System Architecture
+AIS Vessel Data        Float / Buoy Data
+        ↓                      ↓
+   Data Cleaning & Normalization
+                ↓
+     Event Detection (Loitering)
+                ↓
+     Spatiotemporal Correlation
+                ↓
+     Scoring & Ranking Engine
+                ↓
+      Structured Output + Visualization
+📊 Example Use Case
 
-## Approach
-This project uses a staged workflow:
+Identify a vessel exhibiting loitering behavior and determine whether nearby downstream observations (e.g., floats or environmental signals) are likely associated.
 
-1. **Ingestion**
-   - load and clean vessel AIS data
-   - load and clean float first-observation data
+Supports:
 
-2. **Detection**
-   - identify candidate low-speed / loitering windows
+Maritime Domain Awareness (MDA)
+ISR workflows
+Pattern-of-life analysis
+Anomaly detection
+📈 Example Output
+vessel_id	event_time	event_lat	event_lon	float_id	distance_km	time_delta_hr	confidence
+987654321	2026-03-28 12:00	32.71	-117.16	F1023	4.2	1.8	High
 
-3. **Linkage**
-   - compare event centroids to candidate float first appearances
+(Output simplified for demonstration purposes)
 
-4. **Scoring**
-   - rank likely associations using normalized distance and time features
+🛠️ Tech Stack
+Python
+pandas / numpy
+matplotlib
+🔍 Approach
 
-## Tech Stack
-- Python
-- pandas
-- numpy
-- matplotlib
+Ingestion
 
-Planned stack expansion:
-- scikit-learn
-- PostgreSQL / PostGIS
-- FastAPI
-- Next.js
+Load and clean AIS vessel track data
+Load and clean float first-observation data
 
-## Status
-v0.1-engine — working local prototype
+Detection
 
-## Notes
-All data used in this project is synthetic or publicly available. No sensitive or classified information is included.
+Identify candidate low-speed / loitering windows
 
-## Next Steps
-- design a canonical internal schema
-- add real-world AIS ingestion
-- add real-world Argo / buoy ingestion
-- normalize heterogeneous source formats
-- integrate PostGIS for persistent geospatial querying
-- build an API and frontend UX
+Linkage
+
+Compare event centroids to candidate float observations
+
+Scoring
+
+Rank associations using normalized distance and time features
+Generate explainable confidence classifications
+📊 Visualization
+
+(Insert screenshot or plot here — REQUIRED for final version)
+
+🎯 Why This Matters
+
+This project demonstrates how disjointed geospatial and time-series data can be transformed into actionable intelligence through structured pipelines.
+
+This type of workflow is directly applicable to:
+
+Defense and intelligence environments
+Large-scale data integration problems
+Operational decision support systems
+▶️ How to Run
+python -m src.main
+
+(Ensure data is placed in /data/raw/ directory)
+
+📌 Status
+
+v0.1 — Working local prototype
+
+🔭 Next Steps
+Canonical internal schema design
+Real-world AIS and buoy ingestion
+PostGIS integration for geospatial querying
+API layer (FastAPI)
+Frontend interface (Next.js)
+⚠️ Notes
+
+All data used is synthetic or publicly available. No sensitive or classified information is included.
