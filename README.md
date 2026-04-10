@@ -76,7 +76,7 @@ Generate explainable confidence classifications
 
 📊 Visualization
 
-(Insert screenshot or plot here — REQUIRED for final version)
+<img width="1000" height="600" alt="Figure_1" src="https://github.com/user-attachments/assets/478ac1de-afa7-4daa-ab39-1a629d2aa66c" />
 
 🎯 Why This Matters
 
@@ -90,6 +90,7 @@ Operational decision support systems
 
 ▶️ How to Run
 
+pip install -r requirements.txt
 python -m src.main
 
 (Ensure data is placed in /data/raw/ directory)
