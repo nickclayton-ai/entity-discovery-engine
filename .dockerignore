@@ -1,0 +1,13 @@
+.git
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store
+data/raw/*
+data/processed/*
+data/staging/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/staging/.gitkeep
